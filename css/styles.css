@@ -53,6 +53,12 @@ hr {
     padding: 10px 10px 30px 10px;
     margin:10px 10px 30px 10px;
 }
+.navbar.navbar-inverse{
+    margin-bottom: 0px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-bottom-width: 0px;
+}
 
 #side-bar {
     background: #000;
@@ -63,6 +69,8 @@ hr {
     padding: 10px 10px 30px 10px;
     margin:10px 10px 30px 10px;
     text-align: left;
+    margin-top: 0px;
+    border-top-width: 0px;
 
 #pano {
     width: 200px;
