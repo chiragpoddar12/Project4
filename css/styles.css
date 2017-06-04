@@ -30,6 +30,22 @@ hr {
     border: none;
 }
 
+#bFilter{
+    width: 100%;
+}
+
+#containerPlaceInput{
+    padding-right: 0px;
+}
+
+#containerFilterButton{
+    padding-left: 0px;
+}
+
+#inPlace{
+    width: 100%;
+}
+
 #map {
     height: 100%;
     position: absolute;

@@ -14,20 +14,24 @@
             <div class="row">
                 <div class="col-md-4">
                     <div id="side-bar">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <input id="iPlace" type="text" value="Enter Place">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-9" id="containerPlaceInput">
+                                    <input type="text" class="form-control" id="inPlace" placeholder="Station Place">
+                                </div>
+                                <div class="col-md-3" id="containerFilterButton">
+                                    <button type="submit" id="bFilter" class="btn btn-primary"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter</button>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                <input id="bPlace" type="button" value="Show">
-                            </div>
-                        </div>
+                        </form>
                         <div class="row" id="listPlace">
                             <div class="col-md-12">
-                                <ul>
-                                    <li>abc</li>
-                                    <li>abc</li>
-                                    <li>abc</li>
+                                <ul class="list-group">
+                                    <li class="list-group-item">Cras justo odio</li>
+                                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                                    <li class="list-group-item">Morbi leo risus</li>
+                                    <li class="list-group-item">Porta ac consectetur ac</li>
+                                    <li class="list-group-item">Vestibulum at eros</li>
                                 </ul>
                             </div>
                         </div>
@@ -37,21 +41,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="container">
-          <div class="options-box">
-            <h1>Find Your New NYC Home</h1>
-            <div>
-              <input id="show-listings" type="button" value="Show Listings">
-              <input id="hide-listings" type="button" value="Hide Listings">
-              <hr>
-              <span class="text"> Draw a shape to search within it for homes!</span>
-              <input id="toggle-drawing"  type="button" value="Drawing Tools">
-            </div>
-          </div>
-          <div id="map"></div>
-        </div> -->
-
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
