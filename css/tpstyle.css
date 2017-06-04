@@ -1,0 +1,20 @@
+@media(min-width:1200px){
+
+    h1 {font-size:34px; background-color: red;}
+
+}
+@media(min-width:992px){
+
+    h1 {font-size:32px; background-color: yellow;}
+
+}
+@media(min-width:768px){
+
+    h1 {font-size:28px; background-color: green;}
+
+}
+@media(max-width:767px){
+
+    h1 {font-size:26px; background-color: blue;}
+
+}

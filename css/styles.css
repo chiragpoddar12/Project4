@@ -61,16 +61,15 @@ hr {
 }
 
 #side-bar {
-    background: #000;
-    border: 1px solid #999;
-    border-radius: 3px;
+    background: #fff;
+    /*border: 1px solid #999;*/
     height: 100%;
-    line-height: 35px;
     padding: 10px 10px 30px 10px;
-    margin:10px 10px 30px 10px;
+    margin: 10px 10px 30px 10px;
     text-align: left;
     margin-top: 0px;
     border-top-width: 0px;
+}
 
 #pano {
     width: 200px;
@@ -83,4 +82,23 @@ hr {
     width: 27%;
     position: relative;
     margin-left: 10px;
+}
+
+@media(min-width:768px){
+
+    h1 {font-size:28px; background-color: green;}
+    #bListShow{
+        visibility: hidden;
+
+    }
+}
+@media(max-width:767px){
+
+    h1 {font-size:26px; background-color: blue;}
+    #bListShow{
+        visibility: visible;
+    }
+    #side-bar{
+        z-index: 1;
+    }
 }
