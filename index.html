@@ -40,17 +40,8 @@
                         </form>
                         <div class="row" id="listPlace">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
+                                <ul class="list-group" data-bind="foreach: placeList">
+                                    <li data-bind="text: $data.name" class="list-group-item"></li>
                                 </ul>
                             </div>
                         </div>
@@ -65,11 +56,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-         <!-- My javaScript file -->
-        <script type="text/javascript" src="js/main.js"></script>
         <!-- Google Maps Api JS -->
          <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyCuiDTsU8fhjoC-2HL03A0K6z_KLkLRZGQ&callback=initMap"></script>
         <!-- Knockout JS -->
-        <SCRIPT TYPE="text/javascript" src="js/lib/knockout-3.2.0.js"></SCRIPT>
+        <SCRIPT TYPE="text/javascript" src="js/lib/knockout-3.4.2.js"></SCRIPT>
+         <!-- My javaScript file -->
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>

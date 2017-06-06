@@ -34,14 +34,6 @@ hr {
     width: 100%;
 }
 
-#containerPlaceInput{
-    padding-right: 0px;
-}
-
-#containerFilterButton{
-    padding-left: 0px;
-}
-
 #inPlace{
     width: 100%;
 }
@@ -89,7 +81,12 @@ hr {
     h1 {font-size:28px; background-color: green;}
     #bListShow{
         visibility: hidden;
-
+    }
+    #containerFilterButton{
+    padding-left: 0px;
+    }
+    #containerPlaceInput{
+    padding-right: 0px;
     }
 }
 @media(max-width:767px){
