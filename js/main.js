@@ -7,7 +7,7 @@ function initMap() {
 
 var Place = function(data){
     this.name = ko.observable(data.name);
-    this.position = ko.observable(data.postion);
+    this.position = ko.observable(data.position);
 }
 
 var initialPlaceList=[
@@ -56,5 +56,9 @@ var ViewModel = function(){
     initialPlaceList.forEach(function(place){
         this.placeList.push(new Place(place));
     }, this);
+
+    this.changePlace = function(place){
+        console.log(place);
+    }
 }
 ko.applyBindings(new ViewModel());

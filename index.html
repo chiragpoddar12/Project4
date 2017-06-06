@@ -41,7 +41,7 @@
                         <div class="row" id="listPlace">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <ul class="list-group" data-bind="foreach: placeList">
-                                    <li data-bind="text: $data.name" class="list-group-item"></li>
+                                    <li data-bind="text: $data.name, click: $parent.changePlace" class="list-group-item"></li>
                                 </ul>
                             </div>
                         </div>
