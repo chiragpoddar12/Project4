@@ -1,8 +1,30 @@
+var markers = [];
+var map;
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: -34.397, lng: 150.644}
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 5,
+      center: {lat: 19.0760, lng: 72.8777}
     });
+    for(var i=0; i<initialPlaceList.length; i++){
+        var marker = new google.maps.Marker({
+            position: initialPlaceList[i].position,
+            title: initialPlaceList[i].name
+          });
+        markers.push(marker);
+    }
+    showMarkers(markers);
+}
+
+function showMarkers(markers){
+    for(var i=0; i<markers.length; i++){
+        markers[i].setMap(map);
+    }
+}
+
+function hideMarkers(markers){
+    for(var i=0; i<markers.length; i++){
+        markers[i].setMap(null);
+    }
 }
 
 var Place = function(data){
@@ -58,7 +80,15 @@ var ViewModel = function(){
     }, this);
 
     this.changePlace = function(place){
-        console.log(place);
+        hideMarkers(markers);
+        markers = [];
+        var marker = new google.maps.Marker({
+            position: place.position(),
+            title: place.name()
+          });
+        markers.push(marker);
+        showMarkers(markers);
+
     }
 }
 ko.applyBindings(new ViewModel());
