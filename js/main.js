@@ -8,11 +8,25 @@ function initMap() {
     for(var i=0; i<initialPlaceList.length; i++){
         var marker = new google.maps.Marker({
             position: initialPlaceList[i].position,
+            animation: google.maps.Animation.DROP,
             title: initialPlaceList[i].name
           });
+        marker.addListener('click', function(e){
+            toggleBounce(this);
+        });
         markers.push(marker);
     }
     showMarkers(markers);
+}
+
+function toggleBounce(marker){
+    hideMarkers(markers);
+    marker.setMap(map);
+    if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
 }
 
 function showMarkers(markers){
@@ -86,6 +100,7 @@ var ViewModel = function(){
             position: place.position(),
             title: place.name()
           });
+        marker.setAnimation(google.maps.Animation.BOUNCE);
         markers.push(marker);
         showMarkers(markers);
 
