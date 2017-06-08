@@ -11,8 +11,11 @@ function initMap() {
             animation: google.maps.Animation.DROP,
             title: initialPlaceList[i].name
           });
-        marker.addListener('click', function(e){
-            toggleBounce(this);
+        var infowindow = new google.maps.InfoWindow({
+          content: initialPlaceList[i].name
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
         });
         markers.push(marker);
     }
@@ -100,10 +103,16 @@ var ViewModel = function(){
             position: place.position(),
             title: place.name()
           });
+        var infowindow = new google.maps.InfoWindow({
+          content: place.name()
+        });
         marker.setAnimation(google.maps.Animation.BOUNCE);
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
         markers.push(marker);
         showMarkers(markers);
-
     }
 }
 ko.applyBindings(new ViewModel());

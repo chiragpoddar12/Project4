@@ -78,7 +78,7 @@ hr {
 
 @media(min-width:768px){
 
-    h1 {font-size:28px; background-color: green;}
+    /*h1 {font-size:28px; background-color: green;}*/
     #bListShow{
         visibility: hidden;
     }
@@ -91,7 +91,7 @@ hr {
 }
 @media(max-width:767px){
 
-    h1 {font-size:26px; background-color: blue;}
+    /*h1 {font-size:26px; background-color: blue;}*/
     #bListShow{
         visibility: visible;
     }

@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
         <!-- my CSS file -->
         <link rel="stylesheet" type="text/css" href="css/styles.css">
-        <link rel="stylesheet" type="text/css" href="css/tpstyle.css">
+        <!-- <link rel="stylesheet" type="text/css" href="css/tpstyle.css"> -->
     </head>
     <body>
         <!-- <h1>hellp</h1> -->
@@ -34,7 +34,7 @@
                                     <input type="text" class="form-control" id="inPlace" placeholder="Station Place">
                                 </div>
                                 <div class="col-md-2" id="containerFilterButton">
-                                    <button type="submit" id="bFilter" class="btn btn-primary"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter</button>
+                                    <button id="bFilter" class="btn btn-primary"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter</button>
                                 </div>
                             </div>
                         </form>
@@ -43,6 +43,11 @@
                                 <ul class="list-group" data-bind="foreach: placeList">
                                     <li data-bind="text: $data.name, click: $parent.changePlace" class="list-group-item"></li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="row" id="wikiLinks">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h1>Wiki Links</h1>
                             </div>
                         </div>
                     </div>
