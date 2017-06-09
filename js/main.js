@@ -5,20 +5,37 @@ function initMap() {
       zoom: 5,
       center: {lat: 19.0760, lng: 72.8777}
     });
+    var infowindow = new google.maps.InfoWindow({
+        });
     for(var i=0; i<initialPlaceList.length; i++){
         var marker = new google.maps.Marker({
             position: initialPlaceList[i].position,
             animation: google.maps.Animation.DROP,
             title: initialPlaceList[i].name
           });
-        var infowindow = new google.maps.InfoWindow({
-          content: initialPlaceList[i].name
-        });
-        marker.addListener('click', (function(infowindow,marker){
+        marker.addListener('click', (function(marker){
             return function() {
-              infowindow.open(map, marker);
+                infowindow.setContent(marker.getTitle())
+                infowindow.open(map, marker);
+                var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.getTitle()+'&format=json&callback=wikiCallback'
+                $("#wikiArticles").empty();
+                $.ajax({
+                    url : wikiUrl,
+                    dataType : 'jsonP',
+                    success : function(response){
+                        articleList = response[1];
+                        urlList = response[3]
+                        // console.log(response)
+                        for(var i=0; i<articleList.length; i++){
+                            articleStr = articleList[i];
+                            var wUrl = urlList[i]
+                            $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>')
+                        }
+                    }
+                });
+
             }
-        })(infowindow,marker));
+        })(marker));
         markers.push(marker);
     }
     showMarkers(markers);
@@ -115,11 +132,9 @@ var ViewModel = function(){
         $.ajax({
             url : wikiUrl,
             dataType : 'jsonP',
-           //jsonp : callback,
             success : function(response){
                 articleList = response[1];
                 urlList = response[3]
-                console.log(response)
                 for(var i=0; i<articleList.length; i++){
                     articleStr = articleList[i];
                     var wUrl = urlList[i]
@@ -141,7 +156,13 @@ var ViewModel = function(){
 
         marker.addListener('click', (function(infowindow,marker){
             return function() {
-              infowindow.open(map, marker);
+                if(infowindow.anchor == null){
+                    infowindow.open(map, marker);
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }else{
+                    infowindow.close()
+                    marker.setAnimation(null);
+                }
             }
         })(infowindow,marker));
         markers.push(marker);
@@ -157,7 +178,6 @@ var ViewModel = function(){
             $.ajax({
                 url : wikiUrl,
                 dataType : 'jsonP',
-               //jsonp : callback,
                 success : function(response){
                     articleList = response[1];
                     urlList = response[3]
@@ -165,12 +185,14 @@ var ViewModel = function(){
                     for(var i=0; i<articleList.length; i++){
                         articleStr = articleList[i];
                         var wUrl = urlList[i]
-                        $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>')
+                        $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>');
                     }
                 }
             });
         }
-        // var filterList =
+        else{
+            $("#wikiArticles").empty();
+        }
         this.placeList.removeAll();
         var filterList = [];
         for(var i=0; i<initialPlaceList.length; i++){
@@ -187,7 +209,8 @@ var ViewModel = function(){
             this.placeList.push(new Place(place));
         }, this);
         var marker;
-        var infowindow;
+        var infowindow = new google.maps.InfoWindow({
+            });
         hideMarkers(markers);
         markers = [];
 
@@ -196,21 +219,32 @@ var ViewModel = function(){
             position: place.position(),
             title: place.name()
               });
-            infowindow = new google.maps.InfoWindow({
-              content: place.name()
-            });
-            marker.addListener('click', (function(infowindow,marker){
+
+            marker.addListener('click', (function(marker){
             return function() {
-              infowindow.open(map, marker);
+                infowindow.setContent(marker.getTitle());
+                infowindow.open(map, marker);
+                var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.getTitle()+'&format=json&callback=wikiCallback'
+                $("#wikiArticles").empty();
+                $.ajax({
+                    url : wikiUrl,
+                    dataType : 'jsonP',
+                    success : function(response){
+                        articleList = response[1];
+                        urlList = response[3]
+                        console.log(response)
+                        for(var i=0; i<articleList.length; i++){
+                            articleStr = articleList[i];
+                            var wUrl = urlList[i]
+                            $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>');
+                        }
+                    }
+                });
             }
-        })(infowindow,marker));
+        })(marker));
             markers.push(marker);
         });
-        // marker.setAnimation(google.maps.Animation.BOUNCE);
-        // hideMarkers();
         showMarkers(markers);
     }
-
-    // $("#searchForm").submit(self.loadList);
 }
 ko.applyBindings(new ViewModel());
