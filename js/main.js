@@ -15,26 +15,26 @@ function initMap() {
           });
         marker.addListener('click', (function(marker){
             return function() {
-                infowindow.setContent(marker.getTitle())
+                infowindow.setContent(marker.getTitle());
                 infowindow.open(map, marker);
-                var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.getTitle()+'&format=json&callback=wikiCallback'
+                var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.getTitle()+'&format=json&callback=wikiCallback';
                 $("#wikiArticles").empty();
                 $.ajax({
                     url : wikiUrl,
                     dataType : 'jsonP',
                     success : function(response){
                         articleList = response[1];
-                        urlList = response[3]
+                        urlList = response[3];
                         // console.log(response)
                         for(var i=0; i<articleList.length; i++){
                             articleStr = articleList[i];
-                            var wUrl = urlList[i]
-                            $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>')
+                            var wUrl = urlList[i];
+                            $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>');
                         }
                     }
                 });
 
-            }
+            };
         })(marker));
         markers.push(marker);
     }
@@ -77,7 +77,7 @@ function loadList(){
 var Place = function(data){
     this.name = ko.observable(data.name);
     this.position = ko.observable(data.position);
-}
+};
 
 var initialPlaceList=[
     {
@@ -127,7 +127,7 @@ var ViewModel = function(){
     }, this);
 
     this.changePlace = function(place){
-        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+place.name()+'&format=json&callback=wikiCallback'
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+place.name()+'&format=json&callback=wikiCallback';
         $("#wikiArticles").empty();
         $.ajax({
             url : wikiUrl,
@@ -137,8 +137,8 @@ var ViewModel = function(){
                 urlList = response[3]
                 for(var i=0; i<articleList.length; i++){
                     articleStr = articleList[i];
-                    var wUrl = urlList[i]
-                    $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>')
+                    var wUrl = urlList[i];
+                    $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>');
                 }
             }
         });
@@ -156,35 +156,35 @@ var ViewModel = function(){
 
         marker.addListener('click', (function(infowindow,marker){
             return function() {
-                if(infowindow.anchor == null){
+                if(infowindow.anchor === null){
                     infowindow.open(map, marker);
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                 }else{
-                    infowindow.close()
+                    infowindow.close();
                     marker.setAnimation(null);
                 }
-            }
+            };
         })(infowindow,marker));
         markers.push(marker);
         showMarkers(markers);
-    }
+    };
 
     this.filterItems = function(){
         var query = $("#inPlace").val();
         $("#placeList").empty();
-        if(query != ""){
-            var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+query+'&format=json&callback=wikiCallback'
+        if(query !== ""){
+            var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+query+'&format=json&callback=wikiCallback';
             $("#wikiArticles").empty();
             $.ajax({
                 url : wikiUrl,
                 dataType : 'jsonP',
                 success : function(response){
                     articleList = response[1];
-                    urlList = response[3]
-                    console.log(response)
+                    urlList = response[3];
+                    console.log(response);
                     for(var i=0; i<articleList.length; i++){
                         articleStr = articleList[i];
-                        var wUrl = urlList[i]
+                        var wUrl = urlList[i];
                         $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>');
                     }
                 }
@@ -196,7 +196,7 @@ var ViewModel = function(){
         this.placeList.removeAll();
         var filterList = [];
         for(var i=0; i<initialPlaceList.length; i++){
-            if(query == ""){
+            if(query === ""){
                 filterList.push(initialPlaceList[i]);
             }else{
                 if(query == initialPlaceList[i].name){
@@ -224,27 +224,27 @@ var ViewModel = function(){
             return function() {
                 infowindow.setContent(marker.getTitle());
                 infowindow.open(map, marker);
-                var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.getTitle()+'&format=json&callback=wikiCallback'
+                var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+marker.getTitle()+'&format=json&callback=wikiCallback';
                 $("#wikiArticles").empty();
                 $.ajax({
                     url : wikiUrl,
                     dataType : 'jsonP',
                     success : function(response){
                         articleList = response[1];
-                        urlList = response[3]
-                        console.log(response)
+                        urlList = response[3];
+                        console.log(response);
                         for(var i=0; i<articleList.length; i++){
                             articleStr = articleList[i];
-                            var wUrl = urlList[i]
+                            var wUrl = urlList[i];
                             $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>');
                         }
                     }
                 });
-            }
+            };
         })(marker));
             markers.push(marker);
         });
         showMarkers(markers);
-    }
-}
+    };
+};
 ko.applyBindings(new ViewModel());
