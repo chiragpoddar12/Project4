@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-xs-4 col-sm-4 col-md-4" style="padding-right: 0px;">
                     <div id="side-bar" class="collapse navbar-collapse">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" id="searchForm" data-bind="submit: filterItems">
                             <div class="form-group">
                                 <div class="col-md-10" id="containerPlaceInput">
                                     <input type="text" class="form-control" id="inPlace" placeholder="Station Place">
@@ -40,7 +40,7 @@
                         </form>
                         <div class="row" id="listPlace">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <ul class="list-group" data-bind="foreach: placeList">
+                                <ul class="list-group" data-bind="foreach: placeList" id="placeList">
                                     <li data-bind="text: $data.name, click: $parent.changePlace" class="list-group-item"></li>
                                 </ul>
                             </div>
@@ -48,6 +48,8 @@
                         <div class="row" id="wikiLinks">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h1>Wiki Links</h1>
+                                <ul id="wikiArticles">
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -14,9 +14,11 @@ function initMap() {
         var infowindow = new google.maps.InfoWindow({
           content: initialPlaceList[i].name
         });
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
+        marker.addListener('click', (function(infowindow,marker){
+            return function() {
+              infowindow.open(map, marker);
+            }
+        })(infowindow,marker));
         markers.push(marker);
     }
     showMarkers(markers);
@@ -41,6 +43,17 @@ function showMarkers(markers){
 function hideMarkers(markers){
     for(var i=0; i<markers.length; i++){
         markers[i].setMap(null);
+    }
+}
+
+function loadList(){
+    var query = $("#inPlace").val();
+    $("#placeList").empty();
+    var filterList = [];
+    for(var i=0; i<initialPlaceList.length; i++){
+        if(query == initialPlaceList[i].name){
+            filterList.push(initialPlaceList[i]);
+        }
     }
 }
 
@@ -97,6 +110,24 @@ var ViewModel = function(){
     }, this);
 
     this.changePlace = function(place){
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+place.name()+'&format=json&callback=wikiCallback'
+        $("#wikiArticles").empty();
+        $.ajax({
+            url : wikiUrl,
+            dataType : 'jsonP',
+           //jsonp : callback,
+            success : function(response){
+                articleList = response[1];
+                urlList = response[3]
+                console.log(response)
+                for(var i=0; i<articleList.length; i++){
+                    articleStr = articleList[i];
+                    var wUrl = urlList[i]
+                    $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>')
+                }
+            }
+        });
+
         hideMarkers(markers);
         markers = [];
         var marker = new google.maps.Marker({
@@ -108,11 +139,78 @@ var ViewModel = function(){
         });
         marker.setAnimation(google.maps.Animation.BOUNCE);
 
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
+        marker.addListener('click', (function(infowindow,marker){
+            return function() {
+              infowindow.open(map, marker);
+            }
+        })(infowindow,marker));
         markers.push(marker);
         showMarkers(markers);
     }
+
+    this.filterItems = function(){
+        var query = $("#inPlace").val();
+        $("#placeList").empty();
+        if(query != ""){
+            var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search='+query+'&format=json&callback=wikiCallback'
+            $("#wikiArticles").empty();
+            $.ajax({
+                url : wikiUrl,
+                dataType : 'jsonP',
+               //jsonp : callback,
+                success : function(response){
+                    articleList = response[1];
+                    urlList = response[3]
+                    console.log(response)
+                    for(var i=0; i<articleList.length; i++){
+                        articleStr = articleList[i];
+                        var wUrl = urlList[i]
+                        $("#wikiArticles").append('<li><a href="'+wUrl+'">'+articleStr+'</a></li>')
+                    }
+                }
+            });
+        }
+        // var filterList =
+        this.placeList.removeAll();
+        var filterList = [];
+        for(var i=0; i<initialPlaceList.length; i++){
+            if(query == ""){
+                filterList.push(initialPlaceList[i]);
+            }else{
+                if(query == initialPlaceList[i].name){
+                    filterList.push(initialPlaceList[i]);
+                }
+            }
+        }
+
+        filterList.forEach(function(place){
+            this.placeList.push(new Place(place));
+        }, this);
+        var marker;
+        var infowindow;
+        hideMarkers(markers);
+        markers = [];
+
+        this.placeList().forEach(function(place){
+            marker = new google.maps.Marker({
+            position: place.position(),
+            title: place.name()
+              });
+            infowindow = new google.maps.InfoWindow({
+              content: place.name()
+            });
+            marker.addListener('click', (function(infowindow,marker){
+            return function() {
+              infowindow.open(map, marker);
+            }
+        })(infowindow,marker));
+            markers.push(marker);
+        });
+        // marker.setAnimation(google.maps.Animation.BOUNCE);
+        // hideMarkers();
+        showMarkers(markers);
+    }
+
+    // $("#searchForm").submit(self.loadList);
 }
 ko.applyBindings(new ViewModel());
