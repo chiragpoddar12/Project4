@@ -1,19 +1,28 @@
 var markers = [];
 var map;
+var infowindow;
 function initMap() {
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 5,
       center: {lat: 19.0760, lng: 72.8777}
     });
-    var infowindow = new google.maps.InfoWindow({
+
+    infowindow = new google.maps.InfoWindow({
         });
+
     for(var i=0; i<initialPlaceList.length; i++){
         var marker = new google.maps.Marker({
             position: initialPlaceList[i].position,
             animation: google.maps.Animation.DROP,
             title: initialPlaceList[i].name
           });
-        marker.addListener('click', (function(marker){
+        marker.addListener('click', (markerListener)(marker));
+        markers.push(marker);
+    }
+    showMarkers(markers);
+}
+
+function markerListener(marker){
             return function() {
                 infowindow.setContent(marker.getTitle());
                 infowindow.open(map, marker);
@@ -25,7 +34,6 @@ function initMap() {
                     success : function(response){
                         articleList = response[1];
                         urlList = response[3];
-                        // console.log(response)
                         for(var i=0; i<articleList.length; i++){
                             articleStr = articleList[i];
                             var wUrl = urlList[i];
@@ -35,11 +43,7 @@ function initMap() {
                 });
 
             };
-        })(marker));
-        markers.push(marker);
-    }
-    showMarkers(markers);
-}
+        }
 
 function toggleBounce(marker){
     hideMarkers(markers);
@@ -134,7 +138,7 @@ var ViewModel = function(){
             dataType : 'jsonP',
             success : function(response){
                 articleList = response[1];
-                urlList = response[3]
+                urlList = response[3];
                 for(var i=0; i<articleList.length; i++){
                     articleStr = articleList[i];
                     var wUrl = urlList[i];
@@ -156,7 +160,7 @@ var ViewModel = function(){
 
         marker.addListener('click', (function(infowindow,marker){
             return function() {
-                if(infowindow.anchor === null){
+                if(infowindow.anchor === undefined || infowindow.anchor === null){
                     infowindow.open(map, marker);
                     marker.setAnimation(google.maps.Animation.BOUNCE);
                 }else{
@@ -181,7 +185,6 @@ var ViewModel = function(){
                 success : function(response){
                     articleList = response[1];
                     urlList = response[3];
-                    console.log(response);
                     for(var i=0; i<articleList.length; i++){
                         articleStr = articleList[i];
                         var wUrl = urlList[i];
@@ -232,7 +235,6 @@ var ViewModel = function(){
                     success : function(response){
                         articleList = response[1];
                         urlList = response[3];
-                        console.log(response);
                         for(var i=0; i<articleList.length; i++){
                             articleStr = articleList[i];
                             var wUrl = urlList[i];
