@@ -1,16 +1,28 @@
-html,body {
+html,
+body {
     font-family: Arial, sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
 }
+
+#map{
+    margin-left: 0px;
+    padding-left: 0px;
+    overflow: hidden;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
 .container {
     height: 100%;
     position: relative;
 }
+
 input {
     font-size: 12px;
 }
+
 h1 {
     color: #525454;
     font-size: 22px;
@@ -24,13 +36,13 @@ h1 {
 }
 
 hr {
-    background: #D0D7D9;
+    background: #d0d7d9;
     height: 1px;
     margin: 20px 0 20px 0;
     border: none;
 }
 
-#bFilter{
+#bfilter{
     width: 100%;
 }
 
@@ -45,6 +57,7 @@ hr {
     padding: 10px 10px 30px 10px;
     margin:10px 10px 30px 10px;
 }
+
 .navbar.navbar-inverse{
     margin-bottom: 0px;
     margin-right: 10px;
@@ -54,7 +67,6 @@ hr {
 
 #side-bar {
     background: #fff;
-    /*border: 1px solid #999;*/
     height: 100%;
     padding: 10px 10px 30px 10px;
     margin: 10px 10px 30px 10px;
@@ -67,9 +79,11 @@ hr {
     width: 200px;
     height: 200px;
 }
+
 .text {
     font-size: 12px;
 }
+
 #toggle-drawing {
     width: 27%;
     position: relative;
@@ -78,7 +92,6 @@ hr {
 
 @media(min-width:768px){
 
-    /*h1 {font-size:28px; background-color: green;}*/
     #bListShow{
         visibility: hidden;
     }
@@ -89,9 +102,9 @@ hr {
     padding-right: 0px;
     }
 }
+
 @media(max-width:767px){
 
-    /*h1 {font-size:26px; background-color: blue;}*/
     #bListShow{
         visibility: visible;
     }
