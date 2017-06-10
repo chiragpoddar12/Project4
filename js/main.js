@@ -67,17 +67,6 @@ function hideMarkers(markers){
     }
 }
 
-function loadList(){
-    var query = $("#inPlace").val();
-    $("#placeList").empty();
-    var filterList = [];
-    for(var i=0; i<initialPlaceList.length; i++){
-        if(query == initialPlaceList[i].name){
-            filterList.push(initialPlaceList[i]);
-        }
-    }
-}
-
 var Place = function(data){
     this.name = ko.observable(data.name);
     this.position = ko.observable(data.position);
