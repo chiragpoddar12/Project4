@@ -62,7 +62,7 @@ function hideMarkers(markers){
 var Article = function(data){
     this.title = ko.observable(data.title);
     this.url = ko.observable(data.url);
-}
+};
 
 var Place = function(data){
     this.name = ko.observable(data.name);
