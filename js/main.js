@@ -264,4 +264,5 @@ var ViewModel = function() {
         showMarkers(markers);
     };
 };
+// ViewModel.query.subscribe(ViewModel.filterItems);
 ko.applyBindings(new ViewModel());
