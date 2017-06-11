@@ -2,6 +2,7 @@ var markers = [];
 var map;
 var infowindow;
 
+// initialize the map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
@@ -13,6 +14,7 @@ function initMap() {
 
     infowindow = new google.maps.InfoWindow({});
 
+    //add markers to the map
     for (var i = 0; i < initialPlaceList.length; i++) {
         var marker = new google.maps.Marker({
             position: initialPlaceList[i].position,
@@ -25,10 +27,12 @@ function initMap() {
     showMarkers(markers);
 }
 
+//error method for mao
 function mapError(oError) {
     alert("Error loading map. Try again later");
 }
 
+//marker listener
 function markerListener(marker) {
     return function() {
         infowindow.setContent(marker.getTitle());
@@ -72,6 +76,7 @@ var Place = function(data) {
     this.position = ko.observable(data.position);
 };
 
+//model
 var initialPlaceList = [{
         name: 'Mumbai',
         position: {
@@ -110,6 +115,7 @@ var initialPlaceList = [{
 
 ];
 
+//viewModel
 var ViewModel = function() {
     var self = this;
     this.placeList = ko.observableArray([]);
@@ -120,6 +126,7 @@ var ViewModel = function() {
         this.placeList.push(new Place(place));
     }, this);
 
+    //change of place binder
     this.changePlace = function(place) {
         var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name() + '&format=json&callback=wikiCallback';
         $.ajax({
@@ -171,6 +178,7 @@ var ViewModel = function() {
         showMarkers(markers);
     };
 
+    //filter handle
     this.filterItems = function() {
         if (this.query() !== "") {
             var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + this.query() + '&format=json&callback=wikiCallback';
