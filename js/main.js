@@ -41,6 +41,9 @@ function markerListener(marker) {
             tempMarker.setAnimation(null);
         });
         marker.setAnimation(google.maps.Animation.BOUNCE);
+        var wikiRequestTimeout = setTimeout(function(){
+            alert("Could not connect to wikipedia for articles");
+        },10000);
         var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.getTitle() + '&format=json&callback=wikiCallback';
         $.ajax({
             url: wikiUrl,
@@ -59,6 +62,8 @@ function markerListener(marker) {
                 articles.forEach(function(article) {
                     controller.articlesList.push(new Article(article));
                 }, controller);
+
+                clearTimeout(wikiRequestTimeout);
             },
             error: function(error) {
                 alert("Could not connect to wikipedia for articles");
@@ -152,6 +157,9 @@ var ViewModel = function() {
 
     //change of place binder
     this.changePlace = function(place) {
+        var wikiRequestTimeout = setTimeout(function(){
+            alert("Could not connect to wikipedia for articles");
+        },10000);
         var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + place.name() + '&format=json&callback=wikiCallback';
         $.ajax({
             url: wikiUrl,
@@ -170,6 +178,7 @@ var ViewModel = function() {
                 articles.forEach(function(article) {
                     self.articlesList.push(new Article(article));
                 }, self);
+                clearTimeout(wikiRequestTimeout);
             },
             error: function(error) {
                 alert("Could not connect to wikipedia for articles");
@@ -205,6 +214,9 @@ var ViewModel = function() {
     //filter handle
     this.filterItems = function() {
         if (this.query() !== "") {
+            var wikiRequestTimeout = setTimeout(function(){
+                alert("Could not connect to wikipedia for articles");
+            },10000);
             var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + this.query() + '&format=json&callback=wikiCallback';
             $.ajax({
                 url: wikiUrl,
@@ -223,6 +235,7 @@ var ViewModel = function() {
                     articles.forEach(function(article) {
                         self.articlesList.push(new Article(article));
                     }, self);
+                    clearTimeout(wikiRequestTimeout);
                 },
                 error: function(error) {
                     alert("Could not connect to wikipedia for articles");
@@ -258,6 +271,9 @@ var ViewModel = function() {
                     infowindow.setContent(marker.getTitle());
                     infowindow.open(map, marker);
                     marker.setAnimation(google.maps.Animation.BOUNCE);
+                    var wikiRequestTimeout = setTimeout(function(){
+                        alert("Could not connect to wikipedia for articles");
+                    },10000);
                     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.getTitle() + '&format=json&callback=wikiCallback';
                     $.ajax({
                         url: wikiUrl,
@@ -276,6 +292,7 @@ var ViewModel = function() {
                             articles.forEach(function(article) {
                                 self.articlesList.push(new Article(article));
                             }, self);
+                            clearTimeout(wikiRequestTimeout);
                         },
                         error: function(error) {
                             alert("Could not connect to wikipedia for articles");
