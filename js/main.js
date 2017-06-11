@@ -1,7 +1,7 @@
 var markers = [];
 var map;
 var infowindow;
-
+var controller;
 // initialize the map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -41,6 +41,29 @@ function markerListener(marker) {
             tempMarker.setAnimation(null);
         });
         marker.setAnimation(google.maps.Animation.BOUNCE);
+        var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.getTitle() + '&format=json&callback=wikiCallback';
+        $.ajax({
+            url: wikiUrl,
+            dataType: 'jsonP',
+            success: function(response) {
+                controller.articlesList.removeAll();
+                var articles = [];
+                var articleList = response[1];
+                var urlList = response[3];
+                for (var i = 0; i < articleList.length; i++) {
+                    articles.push({
+                        title: articleList[i],
+                        url: urlList[i]
+                    });
+                }
+                articles.forEach(function(article) {
+                    controller.articlesList.push(new Article(article));
+                }, controller);
+            },
+            error: function(error) {
+                alert("Could not connect to wikipedia for articles");
+            }
+        });
     };
 }
 
@@ -117,6 +140,7 @@ var initialPlaceList = [{
 
 //viewModel
 var ViewModel = function() {
+    controller = this;
     var self = this;
     this.placeList = ko.observableArray([]);
     this.articlesList = ko.observableArray([]);
